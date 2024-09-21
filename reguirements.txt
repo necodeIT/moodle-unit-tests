@@ -1,5 +1,4 @@
-rich
 click
 click-spinner
-GitPython
 inquirer
+packaging
