@@ -50,6 +50,15 @@ def run() -> None:
     with spinner():
         driver.launch_moodle()
 
+@main.command()
+def create_baseline() -> None:
+    """
+    Creates a baseline dump of the moodle database.
+    """
+    click.echo("Making sure moodle is running...")
+    with spinner():
+        driver.launch_moodle()
+        driver.sql_dump_baseline()
 
 if __name__ == "__main__":
     main.no_args_is_help = True

@@ -1,4 +1,4 @@
-import requests as r
+# import requests as r
 from packaging.version import parse
 
 

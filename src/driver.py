@@ -1,12 +1,9 @@
 from typing import List
-import git
 import os
 import subprocess
 
-DOCKER_DIR = "docker"
-ENV_PATH = os.path.join(DOCKER_DIR, ".env")
-SERVER_DIR = os.path.join(DOCKER_DIR, "server")
-TESTS_DIR = os.path.join(DOCKER_DIR, "tests")
+import click
+from constants import *
 
 
 class Config:
@@ -48,6 +45,38 @@ def launch_moodle() -> None:
         ],
         check=True,
     )
+
+def stop_moodle() -> None:
+    subprocess.run(
+        [
+            "docker-compose",
+            "-f",
+            os.path.join(SERVER_DIR, "docker-compose.yaml"),
+            "--env-file",
+            ENV_PATH,
+            "down",
+        ],
+        check=True,
+    )
+
+    click.echo("Moodle stopped.")
+
+
+def sql_dump_baseline() -> None:
+    path = os.path.join(SQL_BASELINE_DUMP_DIR, "baseline.sql")
+
+    command = [
+    'docker-compose', '-f', 'docker/server/docker-compose.yaml',
+    '--env-file', 'docker/.env', 'exec', MARIADB_HOST,
+    '/opt/bitnami/mariadb/bin/mariadb-dump', '-u', MARIADB_USER,
+    MARIADB_DATABASE
+    ]
+
+    # Execute the command and redirect the output to a file
+    with open(path, 'w') as outfile:
+        subprocess.run(command, stdout=outfile, stderr=subprocess.PIPE)
+
+    click.echo(f"Baseline dump created at {path}.")
 
 
 def load_config() -> Config:
