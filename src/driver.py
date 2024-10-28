@@ -4,6 +4,7 @@ import subprocess
 
 import click
 from constants import *
+from utils import is_docker_compose_running
 
 
 class Config:
@@ -47,19 +48,22 @@ def launch_moodle() -> None:
     )
 
 def stop_moodle() -> None:
-    subprocess.run(
-        [
-            "docker-compose",
-            "-f",
-            os.path.join(SERVER_DIR, "docker-compose.yaml"),
-            "--env-file",
-            ENV_PATH,
-            "down",
-        ],
-        check=True,
-    )
-
-    click.echo("Moodle stopped.")
+    #is moodle running?
+    if is_docker_compose_running(os.path.join(SERVER_DIR, "docker-compose.yaml"), ENV_PATH):
+        #stop moodle
+        subprocess.run(
+            [
+                "docker-compose",
+                "-f",
+                os.path.join(SERVER_DIR, "docker-compose.yaml"),
+                "--env-file",
+                ENV_PATH,
+                "down",
+            ],
+            check=True,
+        )
+    else:
+        print("Moodle is not running")
 
 
 def sql_dump_baseline() -> None:
@@ -76,7 +80,20 @@ def sql_dump_baseline() -> None:
     with open(path, 'w') as outfile:
         subprocess.run(command, stdout=outfile, stderr=subprocess.PIPE)
 
-    click.echo(f"Baseline dump created at {path}.")
+
+def sql_restore_baseline() -> None:
+    path = os.path.join(SQL_BASELINE_DUMP_DIR, "baseline.sql")
+
+    command = [
+    'docker-compose', '-f', 'docker/server/docker-compose.yaml',
+    '--env-file', 'docker/.env', 'exec', MARIADB_HOST,
+    '/opt/bitnami/mariadb/bin/mariadb', '-u', MARIADB_USER,
+    MARIADB_DATABASE
+    ]
+
+    # Execute the command and redirect the output to a file
+    with open(path, 'r') as infile:
+        subprocess.run(command, stdin=infile, stderr=subprocess.PIPE)
 
 
 def load_config() -> Config:

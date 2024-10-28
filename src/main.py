@@ -2,9 +2,10 @@ import sys
 import os
 import click
 from click_spinner import spinner
-import driver
-import moodle as mdl
-import inquirer
+from constants import *
+from utils import *
+from commands.baseline_commands import *
+from commands.moodle_commands import *
 
 if sys.version_info[0:2] != (3, 12):
     raise Exception("Requires python 3.12")
@@ -16,49 +17,8 @@ def main(ctx: click.Context) -> None:
     if ctx.invoked_subcommand is None:
         click.echo(ctx.get_help())
 
-
-@main.command()
-@click.argument("version", type=click.Choice(mdl.get_releases()), required=False)
-def init(version: str | None) -> None:
-    """
-    Downloads and sets up a local moodle instance.
-    """
-
-    if version is None:
-        choice = inquirer.prompt(
-            [
-                inquirer.List(
-                    "version",
-                    message="Select moodle version",
-                    choices=mdl.get_releases(),
-                )
-            ]
-        )
-
-        version = choice["version"]
-
-    config = driver.Config(version)
-    driver.save_config(config)
-
-
-@main.command()
-def run() -> None:
-    """
-    Runs the moodle instance.
-    """
-    click.echo("Running moodle...")
-    with spinner():
-        driver.launch_moodle()
-
-@main.command()
-def create_baseline() -> None:
-    """
-    Creates a baseline dump of the moodle database.
-    """
-    click.echo("Making sure moodle is running...")
-    with spinner():
-        driver.launch_moodle()
-        driver.sql_dump_baseline()
+main.add_command(moodle)
+main.add_command(baseline)
 
 if __name__ == "__main__":
     main.no_args_is_help = True
