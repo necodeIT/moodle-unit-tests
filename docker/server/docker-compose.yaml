@@ -6,6 +6,7 @@ services:
     env_file:
       - '../.env'
     image: docker.io/bitnami/mariadb:11.4
+    container_name: server-mariadb-1
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
@@ -19,6 +20,7 @@ services:
     env_file:
       - '../.env'
     image: docker.io/bitnami/moodle:${MOODLE_VERSION}
+    container_name: server-moodle-1
     ports:
       - '${HTTP_PORT}:8080'
       - '${HTTPS_PORT}:8443'
@@ -28,6 +30,8 @@ services:
       - MOODLE_DATABASE_USER=bn_moodle
       - MOODLE_DATABASE_NAME=bitnami_moodle
       - ALLOW_EMPTY_PASSWORD=yes
+      - MOODLE_USERNAME=admin
+      - MOODLE_PASSWORD=admin
     volumes:
       - '.moodle/moodle:/bitnami/moodle'
       - '.moodle/moodledata:/bitnami/moodledata'

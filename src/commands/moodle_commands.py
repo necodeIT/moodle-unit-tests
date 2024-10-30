@@ -1,8 +1,11 @@
 import click
 import inquirer
 import driver
+import webbrowser
 import moodle as mdl
 from click_spinner import spinner
+from constants import *
+from utils import get_service_ip
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -41,6 +44,12 @@ def run() -> None:
     click.echo("Running moodle...")
     with spinner():
         driver.launch_moodle()
+        service_ip = get_service_ip(MOODLE_CONTAINER_NAME)
+
+    path = f"http://{service_ip}:{MOODLE_HTTP_PORT}"
+    click.echo(f"Moodle is running at {path}")
+
+    webbrowser.open(path)
 
 
 @moodle.command()

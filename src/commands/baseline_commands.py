@@ -36,5 +36,3 @@ def restore() -> None:
     with spinner():
         driver.launch_moodle()
         driver.sql_restore_baseline()
-    
-    click.echo(f"Baseline dump restored.")
