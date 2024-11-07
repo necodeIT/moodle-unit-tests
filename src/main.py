@@ -6,6 +6,7 @@ from constants import *
 from utils import *
 from commands.baseline_commands import *
 from commands.moodle_commands import *
+from commands.test_commands import *
 
 if sys.version_info[0:2] != (3, 12):
     raise Exception("Requires python 3.12")
@@ -19,6 +20,7 @@ def main(ctx: click.Context) -> None:
 
 main.add_command(moodle)
 main.add_command(baseline)
+main.add_command(test)
 
 if __name__ == "__main__":
     main.no_args_is_help = True

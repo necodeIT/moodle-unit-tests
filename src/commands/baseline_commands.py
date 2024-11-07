@@ -1,6 +1,5 @@
 import click
 import driver
-import moodle as mdl
 from click_spinner import spinner
 from utils import baseline_file_exists
 
