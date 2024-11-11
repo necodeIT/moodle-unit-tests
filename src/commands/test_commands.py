@@ -1,7 +1,5 @@
 import click
 import driver
-from click_spinner import spinner
-from utils import baseline_file_exists
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -19,7 +17,11 @@ def create(name: str) -> None:
     driver.create_test_batch(name)
 
     
-
 @test.command()
-def restore() -> None:
+@click.argument("name", type=click.STRING, required=True)
+def run(name: str) -> None:
+    """
+    Runs a test batch.
+    """
+    # TODO: Run the test batch
     pass
