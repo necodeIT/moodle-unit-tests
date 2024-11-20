@@ -23,5 +23,4 @@ def run(name: str) -> None:
     """
     Runs a test batch.
     """
-    # TODO: Run the test batch
-    pass
+    driver.run_test_batch(name)

@@ -1,6 +1,7 @@
 import sys
 import os
 import mysql.connector
+from driver.moodle import launch_moodle, stop_moodle
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from constants import *
@@ -17,8 +18,8 @@ class DatabaseHandler:
         return result[column] if result else None
     
     def reset_to_baseline(self):
-        # Code to reset DB to baseline
-        pass
+        # TODO: Code to reset DB to baseline
+        launch_moodle()
     
     def close(self):
         self.cursor.close()

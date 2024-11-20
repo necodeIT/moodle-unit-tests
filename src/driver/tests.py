@@ -1,9 +1,10 @@
 import unittest
+import importlib
 import os
 import sys
 from driver.database import DatabaseHandler
 from constants import *
-from utils import get_service_ip, create_test_file
+from utils import get_service_ip, create_test_file, run_tests_from_module
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 TEST_PATH = "tests"
@@ -71,7 +72,11 @@ def run_test_batch(name: str) -> None:
     
     for test_file in test_files:
         test_path = os.path.join(batch_path, test_file)
-        # TODO: Run the test file
+        run_tests_from_module(test_path, test_file.split(".")[0].capitalize())
     
     print(f"Test batch \"{name}\" completed successfully")
+
+
+
+
     
