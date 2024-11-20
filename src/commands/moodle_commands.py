@@ -43,7 +43,7 @@ def run() -> None:
     """
     click.echo("Running moodle...")
     with spinner():
-        driver.launch_moodle()
+        driver.launch_docker_compose()
         service_ip = get_service_ip(MOODLE_CONTAINER_NAME)
 
     path = f"http://{service_ip}:{MOODLE_HTTP_PORT}"
@@ -59,4 +59,4 @@ def stop() -> None:
     """
     click.echo("Stopping moodle...")
     with spinner():
-        driver.stop_moodle()
+        driver.stop_docker_compose()

@@ -43,6 +43,15 @@ def stop_container(container_name: str):
     except subprocess.CalledProcessError as e:
         print(f"Failed to stop container '{container_name}': {e}")
 
+def start_container(container_name: str):
+    """Start a stopped Docker container."""
+    try:
+        subprocess.run(["docker", "start", container_name], check=True)
+        print(f"Container '{container_name}' started successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to start container '{container_name}': {e}")
+
+
 
 # def backup_moodle(container_name: str, backup_path: str):
 #     """
