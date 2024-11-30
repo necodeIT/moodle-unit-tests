@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: moodle-unit-tests
+Version: 0.1.0
+Summary: A simple CLI tool to test Moodle services and plugins
+Home-page: https://github.com/necodeIT/moodle-unit-tests/
+Author: Simon Wewalka
+Author-email: swewalka@pm.me
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: blessed==1.20.0
+Requires-Dist: certifi==2024.8.30
+Requires-Dist: charset-normalizer==3.4.0
+Requires-Dist: click==8.1.7
+Requires-Dist: click-spinner==0.1.10
+Requires-Dist: docker==7.1.0
+Requires-Dist: editor==1.6.6
+Requires-Dist: greenlet==3.1.1
+Requires-Dist: idna==3.10
+Requires-Dist: inquirer==3.4.0
+Requires-Dist: mysql-connector-python==9.1.0
+Requires-Dist: packaging==24.1
+Requires-Dist: PyMySQL==1.1.1
+Requires-Dist: readchar==4.2.0
+Requires-Dist: requests==2.32.3
+Requires-Dist: runs==1.2.2
+Requires-Dist: six==1.16.0
+Requires-Dist: SQLAlchemy==2.0.36
+Requires-Dist: typing_extensions==4.12.2
+Requires-Dist: urllib3==2.2.3
+Requires-Dist: wcwidth==0.2.13
+Requires-Dist: xmod==1.8.1
+
+# Moodle Unit Tests
+
+A framework for unit testing Moodle plugins.
+
+## Prerequisites
+
+- Python 3.12

@@ -1,0 +1,2 @@
+[console_scripts]
+mut = moodle_unit_tests.main:main
