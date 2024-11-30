@@ -1,31 +1,77 @@
-# Moodle Unit Tests
+## Prerequisites
 
-A framework for unit testing Moodle plugins.
 
-## Getting Started
+1. **Docker and Docker Compose**: Ensure Docker is installed and the Docker Daemon is running. You can download it here: [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop) or install it via your package manager on Linux. You can find further information on the [official documentation](https://docs.docker.com/engine/install/).
+2. **Python:** A version >=3.12 is required for this project
+3. **pip:** [installation docs](https://pip.pypa.io/en/stable/installation/)
 
-This program requires Docker and Docker Compose to be installed and running on your system. To install Docker and Docker Compose please follow the [official documentation](https://docs.docker.com/engine/install/). 
+## Installation Linux
 
-### Prerequisites
 
-1. **Docker**: Ensure Docker is installed and the Docker Daemon is running. You can download it here: [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop) or install it via your package manager on Linux.
-2. **Docker Compose**: Included by default in Docker Desktop on Windows. For Linux, you may need to install Docker Compose separately.
-3. **Compatibility**: Supports Docker versions 20.10+ and Docker Compose versions 1.29+.
-4. 
+1. Clone the repository into a folder of your choice
 
-### Initializing a Moodle instance
+```bash
+git clone https://github.com/necodeIT/moodle-unit-tests.git && cd moodle-unit-tests
+```
 
-After cloning the repository 
 
-### IF LINUX: Do some permission stuff for the MariaDB container
+2. Build the Python package with: 
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+After successfully building the project the cli tool is now installed on your system. You can run it with the command `mut`.
+
+
+:::warning
+Currently the cli tool only works inside the moodle-unit-tests folder
+
+:::
+
+### Initializing and running a Docker instance
+
+Before running a Docker instance select the version with
+
+
+:::info
+This method is not fully implemented, use the second one for now
+
+:::
+
+```bash
+mut moodle init
+```
+
+or specify it directly in the command 
+
+```bash
+mut moodle init <version>
+```
+
+Once the version has been set you can start the Moodle instance with
+
+```bash
+mut moodle run
+```
+
+\
+
+:::warning
+**IF LINUX:** Do some permission stuff for the MariaDB container
 
 After running the moodle containers for the first time the mariadb container will fail to start properly. Fix this with the following commands and start the containers again. For details: <https://github.com/bitnami/containers/issues/23841>
 
-```bash
+```javascript
 useradd -u 1001 mariadb-bitnami
 chown -R mariadb-bitnami:mariadb-bitnami ./docker/server/.moodle/mariadb
 ```
 
+:::
+
+\
 ## Troubleshooting
 
 If you encounter any issues:
@@ -39,3 +85,6 @@ If you encounter any issues:
 
 
 ---
+
+\
+\
