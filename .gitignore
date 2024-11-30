@@ -6,3 +6,5 @@ venv
 baseline.sql
 test
 tests
+.vscode
+*.egg-info
