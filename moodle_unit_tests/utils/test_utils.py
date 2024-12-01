@@ -28,17 +28,17 @@ def create_test_file(file_path: str, test_name: str):
 import os
 import unittest
 
-sys.path.insert(0, os.path.abspath('../../src'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from moodle_unit_tests import MoodleUnitTestBase
 
 class {class_name}(MoodleUnitTestBase):
-#   def test_{test_name}(self):
-#       self.assertDBEquals("mdl_user", 2, "email", "user@example.com")
-    pass
+#   def test_connection(self):
+#       self.assertIsNotNone(self.db.connection)
 
-if __name__ == "__main__":
-    unittest.main()
+#   def test_query(self):
+#       self.assertDBEquals("mdl_user", 2, "username", "admin")
+    pass
 """
 
     try:
