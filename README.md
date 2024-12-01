@@ -26,20 +26,16 @@ pip install -e .
 After successfully building the project the cli tool is now installed on your system. You can run it with the command `mut`.
 
 
-:::warning
-Currently the cli tool only works inside the moodle-unit-tests folder
+**NOTICE:** Currently the cli tool only works inside the moodle-unit-tests folder
 
-:::
 
-### Initializing and running a Docker instance
+### Initializing and running Moodle
 
 Before running a Docker instance select the version with
 
 
-:::info
-This method is not fully implemented, use the second one for now
+**NOTICE:** This method is not fully implemented, use the second one for now
 
-:::
 
 ```bash
 mut moodle init
@@ -59,8 +55,8 @@ mut moodle run
 
 \
 
-:::warning
-**IF LINUX:** Do some permission stuff for the MariaDB container
+
+**NOTICE**: If the mariadb container is not starting properly: Do some permission stuff for the MariaDB container
 
 After running the moodle containers for the first time the mariadb container will fail to start properly. Fix this with the following commands and start the containers again. For details: <https://github.com/bitnami/containers/issues/23841>
 
@@ -69,9 +65,38 @@ useradd -u 1001 mariadb-bitnami
 chown -R mariadb-bitnami:mariadb-bitnami ./docker/server/.moodle/mariadb
 ```
 
-:::
+### Using a database baseline
 
-\
+Once Moodle is up and running you can populate the database with data that is necessary for your tests (f.e. adding users or creating courses). To save the current state of the database as a baseline use this command:
+
+```bash
+mut baseline create
+```
+
+The saved database state will be restored before every test. The baseline can also be manually restored with:
+
+```bash
+mut baseline restore
+```
+
+### Creating and running Unittests
+
+To create a Python unit test run:
+
+```bash
+mut test create <test_name> 
+```
+
+When creating a new test a new directory will be created in the `tests/TESTNAME`. In this directory there is a structured Python file where you can start writing your unit tests.  
+
+To run a test use:
+
+```bash
+mut test run <test_name>
+```
+
+The results are saved in a markdown
+
 ## Troubleshooting
 
 If you encounter any issues:
@@ -82,9 +107,3 @@ If you encounter any issues:
   ```bash
   sudo usermod -aG docker $USER
   ```
-
-
----
-
-\
-\
